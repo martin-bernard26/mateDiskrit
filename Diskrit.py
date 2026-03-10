@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 
 st.set_page_config(layout="wide")
 if 'kondisi' not in st.session_state:
@@ -1303,7 +1304,41 @@ End Function
 #=====Pertemuan kedua++++
 
 def materi2():
-    pass
+    tulisanHTML = '''
+    <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/setiap.html" style="width:100%; height:2000px"></iframe>
+    '''
+    st.components.v1.html(tulisanHTML,height=2000)
+#======upload++++
+def upload_tugas():
+    st.title("Upload Jawaban Tulisan Tangan")
+    nama = st.text_input("Nama")
+    nim = st.text_input("NIM")
+
+    foto = st.camera_input("Foto Jawaban")
+
+    if st.button("Upload"):
+
+        if foto is not None:
+
+            url = "https://api.cloudinary.com/v1_1/ikip-siliwangi/image/upload"
+
+            files = {"file": foto.getvalue()}
+
+            data = {
+                "upload_preset": "ml_default",
+                "public_id": f"{nama}_{nim}"
+            }
+
+            response = requests.post(url, files=files, data=data)
+
+            result = response.json()
+
+            if "secure_url" in result:
+                st.success("Upload berhasil")
+                st.write(result["secure_url"])
+            else:
+                st.error("Upload gagal")
+                st.write(result)
 #--------------------------------------
 if st.session_state.kondisi['kover']:
     pendahuluan()
@@ -1311,10 +1346,16 @@ if st.session_state.kondisi['pertemuan1']:
     materi1()
 if st.session_state.kondisi['pertemuan2']:
     materi2()
+if st.session_state.kondisi['pertemuan3']:
+    upload_tugas()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False}
+    st.rerun()
+if st.sidebar.button('Upload Tugas'):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":True}
     st.rerun()
 if st.sidebar.button('Pertemuan 1'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":True, "pertemuan2":False,
