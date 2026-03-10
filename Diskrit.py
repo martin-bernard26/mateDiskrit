@@ -1325,7 +1325,7 @@ def upload_tugas():
             files = {"file": foto.getvalue()}
 
             data = {
-                "upload_preset": "ml_default",
+                "upload_preset": "upload_jawaban",
                 "public_id": f"{nama}_{nim}"
             }
 
@@ -1365,4 +1365,5 @@ if st.sidebar.button("Pertemuan 2"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
                                    "pertemuan3":False}
     st.rerun()
+
 
