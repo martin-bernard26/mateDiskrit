@@ -1,10 +1,13 @@
 import streamlit as st
 import requests
+import time
+from sympy.logic.boolalg import *
+import sympy as sp
 
 st.set_page_config(layout="wide")
 if 'kondisi' not in st.session_state:
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":False}
+                                   "pertemuan3":False,"pertemuan4":False}
 st.title("Matematika Diskrit")
 
 #------------------------------------
@@ -42,7 +45,9 @@ st.markdown('''
 
 #-------------------------------------
 def pendahuluan():
-    tulisanHTML = '''
+    menu2 = st.tabs(['Pendahuluan','Perpustakaan'])
+    if menu2[0]:
+        tulisanHTML = '''
     <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -936,7 +941,20 @@ def pendahuluan():
 </body>
 </html>
     '''
-    st.components.v1.html(tulisanHTML,height=6000)
+        st.components.v1.html(tulisanHTML,height=6000)
+    if menu2[1]:
+        tulisanHTML = '''
+        <iframe src="https://drive.google.com/file/d/1TyeaVyc5vUGQs_2RDZi7coimKa8mfZbW/preview" style="width:100%; height:2000px"></iframe>
+        '''
+        st.components.v1.html(tulisanHTML,height=2000)
+        tulisanHTML1 = '''
+        <iframe src="https://drive.google.com/file/d/1-V8jWTdfJdPpSOnJmzeJlcNANTBzWZ2H/preview" style="width:100%; height:2000px"></iframe>
+        '''
+        st.components.v1.html(tulisanHTML1,height=2000)
+        tulisanHTML2 = '''
+        <iframe src="https://drive.google.com/file/d/1-V8jWTdfJdPpSOnJmzeJlcNANTBzWZ2H/preview" style="width:100%; height:2000px"></iframe>
+        '''
+        st.components.v1.html(tulisanHTML2,height=2000)
 
 #----------Pertemuan 1+++++++++
 def materi1():
@@ -1304,10 +1322,36 @@ End Function
 #=====Pertemuan kedua++++
 
 def materi2():
-    tulisanHTML = '''
-    <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/setiap.html" style="width:100%; height:2000px"></iframe>
-    '''
-    st.components.v1.html(tulisanHTML,height=2000)
+    menu1 = st.tabs(['pretest','Materi','Media Aplikasi','postest'])
+    with menu1[0]:
+        tulisanHTML = '''
+        <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/petestKuantor.html" style="width:100%; height:2000px"></iframe>
+        '''
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu1[1]:
+        tulisanHTML = '''
+        <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/setiap.html" style="width:100%; height:2000px"></iframe>
+        '''
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu1[2]:
+        st.title("Kalkulator cek kebenaran")
+        st.subheader("Gunakan variabel p, q, r, s")
+        st.subheader("Gunakan fungsi Konjungsi: And(p,q)")
+        st.subheader("Gunakan fungsi Disjungsi: Or(p,q)")
+        st.subheader("Gunakan fungsi Implikasi: Implies(p,q)")
+        st.subheader("Gunakan fungsi Biimplikasi: Equivalent(p,q)")
+        p, q, r, s = sp.symbols(r'p q r s')
+        masukan = st.text_input("Penyederhanaan Operasi Logika")
+        if masukan:
+            hasil = sp.simplify(masukan)
+            hasil1 = sp.latex(simplify_logic(hasil))
+            st.latex(hasil1)
+    with menu1[3]:
+        tulisanHTML = '''
+        <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/posttestKuantor.html" style="width:100%; height:2000px"></iframe>
+        '''
+        st.components.v1.html(tulisanHTML,height=2000)
+    
 #======upload++++
 def upload_tugas():
     st.title("Upload Jawaban Tulisan Tangan")
@@ -1339,6 +1383,55 @@ def upload_tugas():
             else:
                 st.error("Upload gagal")
                 st.write(result)
+
+def kolom_diskusi():
+    # URL Firebase Realtime Database
+    FIREBASE_URL = "https://vba-modul-diskusi-default-rtdb.firebaseio.com/chat.json"
+
+    st.title("💬 Chatbot Firebase + Streamlit")
+
+    # session chat
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    # fungsi kirim pesan ke firebase
+    def send_message(user, text):
+        data = {
+            "user": user,
+            "message": text,
+            "time": time.time()
+        }
+
+        requests.post(FIREBASE_URL, json=data)
+
+
+    # fungsi ambil pesan
+    def get_messages():
+
+        response = requests.get(FIREBASE_URL)
+
+        if response.status_code == 200 and response.json() != None:
+            data = response.json()
+            return list(data.values())
+
+        return []
+
+
+    # input nama
+    username = st.text_input("Nama Anda")
+
+    # tampilkan pesan
+    messages = get_messages()
+
+    for msg in messages:
+        st.write(f"**{msg['user']}** : {msg['message']}")
+
+    # input chat
+    chat = st.text_input("Tulis pesan")
+    if st.button("Kirim"):
+        if username and chat:
+            send_message(username, chat)
+            st.rerun()
 #--------------------------------------
 if st.session_state.kondisi['kover']:
     pendahuluan()
@@ -1348,22 +1441,29 @@ if st.session_state.kondisi['pertemuan2']:
     materi2()
 if st.session_state.kondisi['pertemuan3']:
     upload_tugas()
+if st.session_state.kondisi['pertemuan4']:
+    kolom_diskusi()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":False}
+                                   "pertemuan3":False,"pertemuan4":False}
     st.rerun()
 if st.sidebar.button('Upload Tugas'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":True}
+                                   "pertemuan3":True,"pertemuan4":False}
     st.rerun()
+st.sidebar.markdown("---")
 if st.sidebar.button('Pertemuan 1'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":True, "pertemuan2":False,
-                                   "pertemuan3":False}
+                                   "pertemuan3":False,"pertemuan4":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 2"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
-                                   "pertemuan3":False}
+                                   "pertemuan3":False,"pertemuan4":False}
     st.rerun()
-
-
+st.sidebar.markdown("---")
+if st.sidebar.button("Tempat Diskusi"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":True}
+    st.rerun()
+    
