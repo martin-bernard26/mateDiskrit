@@ -7,7 +7,11 @@ import sympy as sp
 st.set_page_config(layout="wide")
 if 'kondisi' not in st.session_state:
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":False,"pertemuan4":False}
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False}
+if 'proses' not in st.session_state:
+    st.session_state['proses']=[]
+
 st.title("Matematika Diskrit")
 
 #------------------------------------
@@ -46,7 +50,7 @@ st.markdown('''
 #-------------------------------------
 def pendahuluan():
     menu2 = st.tabs(['Pendahuluan','Perpustakaan'])
-    if menu2[0]:
+    with menu2[0]:
         tulisanHTML = '''
     <!DOCTYPE html>
 <html lang="id">
@@ -942,19 +946,19 @@ def pendahuluan():
 </html>
     '''
         st.components.v1.html(tulisanHTML,height=6000)
-    if menu2[1]:
-        tulisanHTML = '''
+    with menu2[1]:
+        tulisanHTML3 = '''
         <iframe src="https://drive.google.com/file/d/1TyeaVyc5vUGQs_2RDZi7coimKa8mfZbW/preview" style="width:100%; height:2000px"></iframe>
         '''
-        st.components.v1.html(tulisanHTML,height=2000)
-        tulisanHTML1 = '''
+        st.components.v1.html(tulisanHTML3,height=2000)
+        tulisanHTML4 = '''
         <iframe src="https://drive.google.com/file/d/1-V8jWTdfJdPpSOnJmzeJlcNANTBzWZ2H/preview" style="width:100%; height:2000px"></iframe>
         '''
-        st.components.v1.html(tulisanHTML1,height=2000)
-        tulisanHTML2 = '''
+        st.components.v1.html(tulisanHTML4,height=2000)
+        tulisanHTML5 = '''
         <iframe src="https://drive.google.com/file/d/1-V8jWTdfJdPpSOnJmzeJlcNANTBzWZ2H/preview" style="width:100%; height:2000px"></iframe>
         '''
-        st.components.v1.html(tulisanHTML2,height=2000)
+        st.components.v1.html(tulisanHTML5,height=2000)
 
 #----------Pertemuan 1+++++++++
 def materi1():
@@ -1343,15 +1347,39 @@ def materi2():
         p, q, r, s = sp.symbols(r'p q r s')
         masukan = st.text_input("Penyederhanaan Operasi Logika")
         if masukan:
-            hasil = sp.simplify(masukan)
-            hasil1 = sp.latex(simplify_logic(hasil))
-            st.latex(hasil1)
+            try:
+                hasil = sp.simplify(masukan)
+                hasil1 = sp.latex(simplify_logic(hasil))
+                st.latex(hasil1)
+            except:
+                st.write("Cara Penulisan tidak tepat")
+        st.markdown("---")
+        st.title("Menggunakan Proses")
+        masukan1 = st.text_input("Masukan Proses")
+        kolom = st.columns(2)
+        with kolom[0]:
+            tekan = st.button("Tampilkan Proses")
+        with kolom[1]:
+            tekan1 = st.button("Hapus")
+        if tekan:
+            try:
+                hasil = sp.sympify(masukan1)
+                hasil2 = sp.simplify(masukan1)
+                hasil3 = {"jalan":hasil,"cek":hasil2}
+                st.session_state['proses'].append(hasil3)
+                for data1 in st.session_state['proses']:
+                    st.latex(sp.latex(data1['jalan']))
+                    st.write(data1['cek'])
+            except:
+                st.write("Penulisan belum baik atau belum lengkap")
+        if tekan1:
+            st.session_state['proses']=[]
     with menu1[3]:
         tulisanHTML = '''
         <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/posttestKuantor.html" style="width:100%; height:2000px"></iframe>
         '''
         st.components.v1.html(tulisanHTML,height=2000)
-    
+       
 #======upload++++
 def upload_tugas():
     st.title("Upload Jawaban Tulisan Tangan")
@@ -1432,6 +1460,99 @@ def kolom_diskusi():
         if username and chat:
             send_message(username, chat)
             st.rerun()
+def materiVBA():
+    st.subheader('''
+    Operasi Proposisi Logika
+    ''')
+    vb1 = """
+   Function AND_Logika(p As Boolean, q As Boolean) As Boolean
+    AND_Logika = p And q
+End Function
+
+Function OR_Logika(p As Boolean, q As Boolean) As Boolean
+    OR_Logika = p Or q
+End Function
+
+Function NOT_Logika(p As Boolean) As Boolean
+    NOT_Logika = Not p
+End Function
+
+Function IMPLIKASI(p As Boolean, q As Boolean) As Boolean
+    IMPLIKASI = (Not p) Or q
+End Function
+
+Function BIIMPLIKASI(p As Boolean, q As Boolean) As Boolean
+    BIIMPLIKASI = (p And q) Or ((Not p) And (Not q))
+End Function
+    """
+    st.code(vb1,language='vb')
+    st.subheader('''
+    VBA: Kuantor (∀ dan ∃)
+    ''')
+    vb2='''
+    Function SemuaLebihDari(dataRange As Range, nilai As Double) As Boolean
+    Dim cell As Range
+    SemuaLebihDari = True
+    
+    For Each cell In dataRange
+        If cell.Value <= nilai Then
+            SemuaLebihDari = False
+            Exit Function
+        End If
+    Next cell
+End Function
+
+Function AdaLebihDari(dataRange As Range, nilai As Double) As Boolean
+    Dim cell As Range
+    
+    For Each cell In dataRange
+        If cell.Value > nilai Then
+            AdaLebihDari = True
+            Exit Function
+        End If
+    Next cell
+    
+    AdaLebihDari = False
+End Function
+    '''
+    st.code(vb2,language='vb')
+    st.subheader("VBA: Kesimpulan Logika (Modus Ponens)")
+    vb3 = '''
+    Function ModusPonens(p As Boolean, implikasi As Boolean) As String
+    If p = True And implikasi = True Then
+        ModusPonens = "Q Benar"
+    Else
+        ModusPonens = "Tidak dapat disimpulkan"
+    End If
+End Function
+    '''
+    st.code(vb3,language='vb')
+def materiKonsepVBA():
+    tulisanHTML = '''
+        <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/konsepVBA.html" style="width:100%; height:2000px"></iframe>
+        '''
+    st.components.v1.html(tulisanHTML,height=2000)
+def materi3():
+    menu2 = st.tabs(['Kemampuan Awal','Materi','Contoh','Tugas'])
+    with menu2[0]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/testA1.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu2[1]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/himpunan.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+        st.write("#### Analisis")
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/tulisan.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu2[2]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/latihanA1.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+        st.write("#### Analisis")
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/tulisan.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu2[3]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/postestA1.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+
 #--------------------------------------
 if st.session_state.kondisi['kover']:
     pendahuluan()
@@ -1443,27 +1564,54 @@ if st.session_state.kondisi['pertemuan3']:
     upload_tugas()
 if st.session_state.kondisi['pertemuan4']:
     kolom_diskusi()
+if st.session_state.kondisi['pertemuan5']:
+    materiVBA()
+if st.session_state.kondisi['pertemuan6']:
+    materiKonsepVBA()
+if st.session_state.kondisi['pertemuan7']:
+    materi3()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":False,"pertemuan4":False}
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False}
     st.rerun()
 if st.sidebar.button('Upload Tugas'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":True,"pertemuan4":False}
+                                   "pertemuan3":True,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False}
+    st.rerun()
+st.sidebar.markdown("---")
+if st.sidebar.button('Konsep Dasar Koding VBA'):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":True,"pertemuan7":False}
+    st.rerun()
+if st.sidebar.button('Media VBA for Excel'):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":True,
+                                   "pertemuan6":False,"pertemuan7":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Pertemuan 1'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":True, "pertemuan2":False,
-                                   "pertemuan3":False,"pertemuan4":False}
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 2"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
-                                   "pertemuan3":False,"pertemuan4":False}
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False}
+    st.rerun()
+if st.sidebar.button("Pertemuan 3"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Tempat Diskusi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
-                                   "pertemuan3":False,"pertemuan4":True}
+                                   "pertemuan3":False,"pertemuan4":True,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False}
     st.rerun()
     
