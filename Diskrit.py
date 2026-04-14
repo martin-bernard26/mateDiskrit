@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 if 'kondisi' not in st.session_state:
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
 if 'proses' not in st.session_state:
     st.session_state['proses']=[]
 
@@ -1533,7 +1533,7 @@ def materiKonsepVBA():
         '''
     st.components.v1.html(tulisanHTML,height=2000)
 def materi3():
-    menu2 = st.tabs(['Kemampuan Awal','Materi','Contoh','Tugas'])
+    menu2 = st.tabs(['Kemampuan Awal','Materi','Contoh','Tugas','Media VBA'])
     with menu2[0]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/testA1.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
@@ -1552,6 +1552,41 @@ def materi3():
     with menu2[3]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/postestA1.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
+    with menu2[4]:
+        file_id = "1p4IAKB3AdZaVm9LDFSJqZX1nR_i1Cb-v"
+        url = f"https://drive.google.com/uc?export=download&id={file_id}"
+
+        response = requests.get(url)
+        st.download_button(
+            label="Download Excel",
+            data=response.content,
+            file_name="data.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+def materi4():
+    menu3 = st.tabs(['Observasi','test diagnosa','Materi','Latihan','Tugas'])
+    with menu3[0]:
+        st.write("<h4>Pendapat terbuka tentang Motivasi dan Kemandirian koding</h4>",unsafe_allow_html=True)
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/Angket1.html' style='width:70%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
+    with menu3[1]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/diagnosa4bt.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
+    with menu3[2]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/materi4b.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
+    with menu3[3]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/contoh4b.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
+    with menu3[4]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/latihan4b.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
+        
 
 #--------------------------------------
 if st.session_state.kondisi['kover']:
@@ -1570,48 +1605,55 @@ if st.session_state.kondisi['pertemuan6']:
     materiKonsepVBA()
 if st.session_state.kondisi['pertemuan7']:
     materi3()
+if st.session_state.kondisi['pertemuan8']:
+    materi4()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
 if st.sidebar.button('Upload Tugas'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":True,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Konsep Dasar Koding VBA'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":True,"pertemuan7":False}
+                                   "pertemuan6":True,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
 if st.sidebar.button('Media VBA for Excel'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":True,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Pertemuan 1'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":True, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 2"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 3"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":True}
+                                   "pertemuan6":False,"pertemuan7":True,"pertemuan8":False}
+    st.rerun()
+if st.sidebar.button("Pertemuan 4"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Tempat Diskusi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":True,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
     st.rerun()
     
