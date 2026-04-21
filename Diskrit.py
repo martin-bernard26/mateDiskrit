@@ -3,12 +3,16 @@ import requests
 import time
 from sympy.logic.boolalg import *
 import sympy as sp
+import base64
+from PIL import Image
+from io import BytesIO
 
 st.set_page_config(layout="wide")
 if 'kondisi' not in st.session_state:
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
 if 'proses' not in st.session_state:
     st.session_state['proses']=[]
 
@@ -1527,6 +1531,134 @@ End Function
 End Function
     '''
     st.code(vb3,language='vb')
+    st.markdown("---")
+    st.subheader('''
+    VBA: Relasi dan Fungsi
+    ''')
+    tulisanHTML = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/image/upload/v1776741444/RelasidanFungsi_fu8mw4.png' style='width:100%; height:500px'></iframe>"
+    st.components.v1.html(tulisanHTML,height=500)
+    st.write("Untuk lebih jelas, silahkan perhatikan dosen yang sedang menjelaskan")
+    vb4 = '''
+    Dim label1, label2 As String
+Dim indeks As Integer
+
+Sub anggota_himpunan()
+Dim lembar As Worksheet
+Set lembar = Worksheets("Sheet1")
+
+tulisan = lembar.Shapes(Application.Caller).Name
+masukan = InputBox("Masukan Anggota untuk " & tulisan)
+warna = vbWhite
+warnaT = vbWhite
+MsgBox tulisan
+indeks = 0
+
+For i = 1 To 200
+    lembar.Shapes("panah" & i).Delete
+Next i
+
+If tulisan = "domain" Then
+    lembar.Shapes(Application.Caller).TextFrame2.TextRange.Text = masukan
+    warna = vbYellow
+    warnaT = vbBlack
+    tulisan = "bolaA"
+    posisi = 120
+Else
+    lembar.Shapes(Application.Caller).TextFrame2.TextRange.Text = masukan
+    warna = vbBlue
+    warnaT = vbWhite
+    tulisan = "bolaB"
+    posisi = 350
+End If
+
+Call gambar(warna, warnaT, tulisan, masukan, posisi)
+
+End Sub
+
+Sub gambar(wr, wrt, tls, msk, pos)
+On Error Resume Next
+Dim lembar As Worksheet
+Dim gambaran As Shape
+Set lembar = Worksheets("Sheet1")
+
+For i = 1 To 200
+    lembar.Shapes(tls & i).Delete
+Next i
+Data1 = Split(msk, ",")
+j = 0
+For Each i In Data1
+    j = j + 1
+    Set gambaran = lembar.Shapes.AddShape(msoShapeOval, pos, 60 + 50 * (j - 1), 40, 40)
+    gambaran.Name = tls & j
+    With lembar.Shapes(tls & j)
+        With .TextFrame2
+            .TextRange.Text = i
+            .HorizontalAnchor = msoAnchorCenter
+            .VerticalAnchor = msoAnchorMiddle
+            .TextRange.Font.Fill.ForeColor.RGB = wrt
+            .TextRange.Font.Bold = msoTrue
+        End With
+        .Line.ForeColor.RGB = vbBlack
+        .Fill.ForeColor.RGB = wr
+        .OnAction = "jalankan"
+    End With
+Next i
+End Sub
+Sub jalankan()
+On Error Resume Next
+Dim lembar As Worksheet
+Dim gambaran As Shape
+Dim kontrol As Boolean
+Set lembar = Worksheets("Sheet1")
+
+kontrol = False
+ambilLabel = Mid(lembar.Shapes(Application.Caller).Name, 1, 5)
+If ambilLabel = "bolaA" Then
+    label1 = lembar.Shapes(Application.Caller).Name
+Else
+    If label1 <> "" Then
+        label2 = lembar.Shapes(Application.Caller).Name
+        kontrol = True
+    Else
+        MsgBox "belum dipasangkan"
+    End If
+End If
+
+If kontrol Then
+    indeks = indeks + 1
+    posx1 = lembar.Shapes(label1).Left
+    posy1 = lembar.Shapes(label1).Top
+    leb1 = lembar.Shapes(label1).Width
+    tin1 = lembar.Shapes(label1).Height
+    posx2 = lembar.Shapes(label2).Left
+    posy2 = lembar.Shapes(label2).Top
+    leb2 = lembar.Shapes(label2).Width
+    tin2 = lembar.Shapes(label2).Height
+    
+    Set gambaran = lembar.Shapes.AddLine(posx1 + leb1, posy1 + tin1 / 2, posx2, posy2 + tin2 / 2)
+    gambaran.Name = "panah" & indeks
+    
+    With lembar.Shapes("panah" & indeks)
+        .Line.ForeColor.RGB = vbRed
+        .Line.Weight = 2
+        .OnAction = "jalankan1"
+    End With
+    
+End If
+
+End Sub
+
+Sub jalankan1()
+On Error Resume Next
+Dim lembar As Worksheet
+Set lembar = Worksheets("Sheet1")
+lembar.Shapes(Application.Caller).Delete
+End Sub
+    '''
+    st.code(vb4,language='vb')
+    st.write("Buatkan dan kembangkan")
+    tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/kirimFileMasukan.html' style='width:100%; height:500px'></iframe>"
+    st.components.v1.html(tulisanHTML,height=500)
 def materiKonsepVBA():
     tulisanHTML = '''
         <iframe src="https://martin-bernard26.github.io/matematikaDiskrit2023A1/konsepVBA.html" style="width:100%; height:2000px"></iframe>
@@ -1569,11 +1701,9 @@ def materi4():
         st.write("<h4>Pendapat terbuka tentang Motivasi dan Kemandirian koding</h4>",unsafe_allow_html=True)
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/Angket1.html' style='width:70%; height:500px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
-        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
     with menu3[1]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/diagnosa4bt.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
-        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
     with menu3[2]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/materi4b.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
@@ -1581,13 +1711,126 @@ def materi4():
     with menu3[3]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/contoh4b.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
-        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
     with menu3[4]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/latihan4b.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
-        st.write("<h4>Pendapat Motivasi dan Kemandirian Matematika Diskrit</h4>",unsafe_allow_html=True)
-        
+    
 
+def media_video():
+    st.write("<h4 style='font-family:broadway; color:yellow; text-shadow:3px 2px blue, -2px -2px red'>Video VBA for Excel</h4>",unsafe_allow_html=True)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 1</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 1"):
+        tulisanHTML = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740982532/Recording_34_cighxl.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 2</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 2"):
+        tulisanHTML1 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740983645/Recording_35_ahpbrp.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML1,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 3</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 3"):
+        tulisanHTML2 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740991400/Recording_36_ieybn1.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML2,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 4</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 4"):
+        tulisanHTML3 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740992391/Recording_37_yefvcq.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML3,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 5</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 5"):
+        tulisanHTML4 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740993059/Recording_38_st1oma.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML4,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 6</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 6"):
+        tulisanHTML5 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740993648/Recording_39_t7a37c.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML5,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 7</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 7"):
+        tulisanHTML6 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740994201/Recording_40_spsfsu.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML6,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 8</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 8"):
+        tulisanHTML7 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740995478/Recording_41_jwdzxh.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML7,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 9</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 9"):
+        tulisanHTML8 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740996240/Recording_42_zbqpi5.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML8,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 10</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 10"):
+        tulisanHTML9 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1740997523/Recording_43_b2mmv6.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML9,height=500)
+    st.markdown("---")
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 11 (Operasi Penjumlahan)</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 11"):
+        tulisanHTML10 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1741000807/Recording_44_fwmeap.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML10,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 12 (Operasi Pengurangan)</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 12"):
+        tulisanHTML10 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1741002705/Recording_45_uamq6j.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML10,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 13 (Operasi Perkalian)</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 13"):
+        tulisanHTML10 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1741003182/Recording_46_xcglrz.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML10,height=500)
+    st.write("<h5 style='font-family:stencil; color:green; '>Materi 14 (Operasi Pembagian)</h5>",unsafe_allow_html=True)
+    with st.expander("Materi 14"):
+        tulisanHTML10 = "<iframe src='https://res.cloudinary.com/ikip-siliwangi/video/upload/v1741003881/Recording_47_jwzf5r.mp4' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML10,height=500)
+    
+def hasil_diskusi():
+    # URL Firebase (WAJIB .json)
+    FIREBASE_URL = "https://chatting-matematika-default-rtdb.firebaseio.com/images.json"
+
+    st.title("Upload & Tampilkan Gambar ke Firebase")
+
+    # Upload file
+    uploaded_file = st.file_uploader("Upload gambar (JPEG)", type=["jpg", "jpeg"])
+
+    if uploaded_file is not None:
+        # Tampilkan gambar
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Gambar diupload", use_column_width=True)
+
+        # Convert ke base64
+        buffered = BytesIO()
+        image.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+
+        # Tombol upload
+        if st.button("Kirim ke Firebase"):
+            data = {
+                "nama": uploaded_file.name,
+                "image": img_str
+            }
+            res = requests.post(FIREBASE_URL, json=data)
+            st.success("Berhasil upload!")
+
+    # ==========================
+    # Ambil & tampilkan data
+    # ==========================
+    st.subheader("Data dari Firebase")
+
+    if st.button("Ambil Data"):
+        res = requests.get(FIREBASE_URL)
+        data = res.json()
+
+        if data:
+            for key, val in data.items():
+                st.write("Nama:", val["nama"])
+
+                # Decode base64 ke gambar
+                img_bytes = base64.b64decode(val["image"])
+                img = Image.open(BytesIO(img_bytes))
+
+                st.image(img, caption="Dari Firebase")
+
+def materi5():
+    st.write('<h4>Motivasi dan Kemandirian Belajar Matematika Diskrit</h4>',unsafe_allow_html=True)
+    tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/angket4.html' style='width:100%; height:500px'></iframe>"
+    st.components.v1.html(tulisanHTML,height=500)
+    st.write('<h4>Masukan Anda Belajar Matematika Diskrit</h4>',unsafe_allow_html=True)
+    tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/angket3.html' style='width:100%; height:500px'></iframe>"
+    st.components.v1.html(tulisanHTML,height=500)
+    
 #--------------------------------------
 if st.session_state.kondisi['kover']:
     pendahuluan()
@@ -1607,53 +1850,86 @@ if st.session_state.kondisi['pertemuan7']:
     materi3()
 if st.session_state.kondisi['pertemuan8']:
     materi4()
+if st.session_state.kondisi['pertemuan9']:
+    media_video()
+if st.session_state.kondisi['pertemuan10']:
+    hasil_diskusi()
+if st.session_state.kondisi['pertemuan11']:
+    materi5()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 if st.sidebar.button('Upload Tugas'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":True,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Konsep Dasar Koding VBA'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":True,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":True,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+    st.rerun()
+if st.sidebar.button('Video Dasar Koding VBA'):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":True,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 if st.sidebar.button('Media VBA for Excel'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":True,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Pertemuan 1'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":True, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 2"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 3"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":True,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":True,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
     st.rerun()
 if st.sidebar.button("Pertemuan 4"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":True}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":True,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+    st.rerun()
+if st.sidebar.button("Pertemuan 5"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Tempat Diskusi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":True,"pertemuan5":False,
-                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False}
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+    st.rerun()
+if st.sidebar.button("Hasil Diskusi di Kelas"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":True,"pertemuan11":False}
     st.rerun()
     
