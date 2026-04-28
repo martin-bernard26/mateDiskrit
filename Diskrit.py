@@ -12,7 +12,8 @@ if 'kondisi' not in st.session_state:
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
 if 'proses' not in st.session_state:
     st.session_state['proses']=[]
 
@@ -1830,6 +1831,72 @@ def materi5():
     st.write('<h4>Masukan Anda Belajar Matematika Diskrit</h4>',unsafe_allow_html=True)
     tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/angket3.html' style='width:100%; height:500px'></iframe>"
     st.components.v1.html(tulisanHTML,height=500)
+
+def materi6():
+    menu = st.tabs(['sejarah dan filsafat','Test Diagnosa','Materi','Contoh Soal','Tugas'])
+    with menu[0]:
+        with st.expander("Bilangan Mesir Kuno"):
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.header("Bilangan Mesir Kuno")
+                st.image("https://teoribilangan.mipa.ugm.ac.id/wp-content/uploads/sites/1300/2020/10/SB-Heiro-194x300.jpg")
+            with col2:
+                st.header("Sistem numerik Mesir Kuno")
+                st.image("https://cdn-wordpress-info.futurelearn.com/info/wp-content/uploads/Numbers_key-768x614.jpg")
+            with col3:
+                st.header("Pecahan Mesir Kuno")
+                st.image("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHi3QDOGmnDkWwrqaKbFC45Fj5TZFKkHzb7klM_RD4Ugio1G4Q3aVLwK1jXIQYglCi4P-_IfIzqlnMFmxVn_h95nKyPNZzKuju2jn8mkFBA-lUolRsAJAyekOkmawxdAfwoP1GxSZLiEbx/s1600/Moscow_papyrus.jpeg")
+        with st.expander("Bilangan Sumeria"):
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.header("Sistem Numerasi Babilonia")
+                st.image("https://gytha21com.wordpress.com/wp-content/uploads/2019/05/jjs.jpg")
+            with col2:
+                st.header("Misteri angka 144")
+                st.image("https://assets-a1.kompasiana.com/items/album/2021/04/12/sumerian-cuneiform-1200x675-60745d7c8ede482641174ee2.jpg")
+            with col3:
+                st.header("Akar Kuadrat 2")
+                st.image("https://i.ibb.co.com/9HbBK3Gy/YBC-7289-OBV-labeled.jpg")
+            with col4:
+                st.header("Plimpton 322")
+                st.image("https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/106/2024/04/15/image-2351533081.jpg")
+        with st.expander("Bilangan Tiongkok Kuno"):
+            col1, col2 = st.columns(2)
+            with col1:
+                st.header("Sistem Numerasi Tiongkok Kuno")
+                st.image("https://nonaguru.wordpress.com/wp-content/uploads/2017/02/angka-batang.jpg")
+            with col2:
+                st.header("Sistem yang digunakan pertama kali")
+                st.image("https://mathshistory.st-andrews.ac.uk/Diagrams/oracular.gif")
+        with st.expander("Bilangan Yunani Kuno"):
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.header("Sistem Numerasi Yunani Kuno")
+                st.image("https://lutfianaulfa7.wordpress.com/wp-content/uploads/2015/04/yunani-kuno.jpg?w=648")
+            with col2:
+                st.header("Euklides Teorema Pythagoras")
+                st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Pythagoras_Euclid.svg/500px-Pythagoras_Euclid.svg.png")
+            with col3:
+                st.header("Bilangan Prima Erathotenes")
+                st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ3EO1jkcHEuXY5HtqoLWORKg6SWCOWRulLg&s")
+            with col4:
+                st.header("Paradox Zeno")
+                st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Zeno_Achilles_Paradox.png/960px-Zeno_Achilles_Paradox.png")
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/sejarahfilsafat6.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu[1]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/diagnosaA16.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu[2]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/bilanganA1.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu[3]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/contohA1.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu[4]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/tugasA16B.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    
     
 #--------------------------------------
 if st.session_state.kondisi['kover']:
@@ -1856,80 +1923,101 @@ if st.session_state.kondisi['pertemuan10']:
     hasil_diskusi()
 if st.session_state.kondisi['pertemuan11']:
     materi5()
+if st.session_state.kondisi['pertemuan12']:
+    materi6()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
 if st.sidebar.button('Upload Tugas'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":True,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Konsep Dasar Koding VBA'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":True,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
 if st.sidebar.button('Video Dasar Koding VBA'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":True,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":True,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
 if st.sidebar.button('Media VBA for Excel'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":True,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
 st.sidebar.markdown("---")
-if st.sidebar.button('Pertemuan 1'):
+if st.sidebar.button('Proposisi Logika'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":True, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
-if st.sidebar.button("Pertemuan 2"):
+if st.sidebar.button("Kuantor dan Kesimpulan Logika"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
-if st.sidebar.button("Pertemuan 3"):
+if st.sidebar.button("Teori Himpunan"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":True,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
-if st.sidebar.button("Pertemuan 4"):
+if st.sidebar.button("Relasi dan Fungsi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":True,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
-if st.sidebar.button("Pertemuan 5"):
+if st.sidebar.button("Evaluasi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":True}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":True,
+                                   "pertemuan12":False}
+    st.rerun()
+if st.sidebar.button("Teori Bilangan"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Tempat Diskusi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":True,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
 if st.sidebar.button("Hasil Diskusi di Kelas"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
-                                   "pertemuan9":False,"pertemuan10":True,"pertemuan11":False}
+                                   "pertemuan9":False,"pertemuan10":True,"pertemuan11":False,
+                                   "pertemuan12":False}
     st.rerun()
     
