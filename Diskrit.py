@@ -13,7 +13,7 @@ if 'kondisi' not in st.session_state:
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
 if 'proses' not in st.session_state:
     st.session_state['proses']=[]
 
@@ -1897,7 +1897,91 @@ def materi6():
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/tugasA16B.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
     
+def materi7():
+    menu = st.tabs(['Ujian Tengah Semester','Contoh'])
+    with menu[0]:
+        tulisanHTML = "<iframe src='https://drive.google.com/file/d/1-tp_YgKL11ZPg3gUojsDrLrYbhHCKqgR/preview' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+        st.write("Masukan Tugas")
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/UTS.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=2000)
+    with menu[1]:
+        st.code("""
+Option Explicit
+
+' Fungsi Utama untuk Memperbarui Visual Warna
+Sub UpdateVisual(hasil As Boolean)
+    Dim shp As Shape
+    Set shp = ActiveSheet.Shapes("ShapeHasil")
     
+    If hasil Then
+        shp.Fill.ForeColor.RGB = RGB(0, 255, 0) ' Hijau (True)
+        shp.TextFrame2.TextRange.Characters.Text = "TRUE"
+    Else
+        shp.Fill.ForeColor.RGB = RGB(255, 0, 0) ' Merah (False)
+        shp.TextFrame2.TextRange.Characters.Text = "FALSE"
+    End If
+End Sub
+' --- Prosedur Operasi Logika ---
+
+Sub Logika_AND()
+    Dim p As Boolean, q As Boolean
+    p = Range("B3").Value: q = Range("B4").Value
+    UpdateVisual (p And q)
+End Sub
+
+Sub Logika_OR()
+    Dim p As Boolean, q As Boolean
+    p = Range("B3").Value: q = Range("B4").Value
+    UpdateVisual (p Or q)
+End Sub
+
+Sub Logika_NOT()
+    ' NOT biasanya hanya untuk satu variabel (misal p)
+    Dim p As Boolean
+    p = Range("B3").Value
+    UpdateVisual (Not p)
+End Sub
+Sub Logika_Implikasi()
+    ' Rumus Implikasi p -> q identik dengan (Not p) Or q
+    Dim p As Boolean, q As Boolean
+    p = Range("B3").Value: q = Range("B4").Value
+    
+    Select Case p
+        Case True
+            UpdateVisual q
+        Case False
+            UpdateVisual True
+    End Select
+End Sub
+Sub Logika_Biimplikasi()
+    Dim p As Boolean, q As Boolean
+    p = Range("B3").Value: q = Range("B4").Value
+    UpdateVisual (p = q)
+End Sub
+Sub tekan()
+Dim lembar As Worksheet
+Dim a As String
+Set lembar = Worksheets(1)
+a = lembar.Shapes(Application.Caller).Name
+Select Case a
+    Case "tombol1"
+        If Range("B3").Value = "True" Then
+            Range("B3").Value = "False"
+        Else
+            Range("B3").Value = "True"
+        End If
+    Case "tombol2"
+        If Range("B4").Value = "True" Then
+            Range("B4").Value = "False"
+        Else
+            Range("B4").Value = "True"
+        End If
+End Select
+End Sub
+        """)
+        st.video("https://youtu.be/Tiq7qPuxj04")
+        
 #--------------------------------------
 if st.session_state.kondisi['kover']:
     pendahuluan()
@@ -1925,20 +2009,22 @@ if st.session_state.kondisi['pertemuan11']:
     materi5()
 if st.session_state.kondisi['pertemuan12']:
     materi6()
+if st.session_state.kondisi['pertemuan13']:
+    materi7()
 #--------------------------------------
 if st.sidebar.button('Pendahuluan'):
     st.session_state['kondisi'] = {"kover":True,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button('Upload Tugas'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":True,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Konsep Dasar Koding VBA'):
@@ -1946,21 +2032,21 @@ if st.sidebar.button('Konsep Dasar Koding VBA'):
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":True,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button('Video Dasar Koding VBA'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":True,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button('Media VBA for Excel'):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":True,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button('Proposisi Logika'):
@@ -1968,42 +2054,49 @@ if st.sidebar.button('Proposisi Logika'):
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button("Kuantor dan Kesimpulan Logika"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":True,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button("Teori Himpunan"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":True,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button("Relasi dan Fungsi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":True,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button("Evaluasi"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":True,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button("Teori Bilangan"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":True}
+                                   "pertemuan12":True,"pertemuan13":False}
+    st.rerun()
+if st.sidebar.button("Ujian Tengah Semester"):
+    st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
+                                   "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
+                                   "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
+                                   "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
+                                   "pertemuan12":False,"pertemuan13":True}
     st.rerun()
 st.sidebar.markdown("---")
 if st.sidebar.button("Tempat Diskusi"):
@@ -2011,13 +2104,13 @@ if st.sidebar.button("Tempat Diskusi"):
                                    "pertemuan3":False,"pertemuan4":True,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":False,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
 if st.sidebar.button("Hasil Diskusi di Kelas"):
     st.session_state['kondisi'] = {"kover":False,"pertemuan1":False, "pertemuan2":False,
                                    "pertemuan3":False,"pertemuan4":False,"pertemuan5":False,
                                    "pertemuan6":False,"pertemuan7":False,"pertemuan8":False,
                                    "pertemuan9":False,"pertemuan10":True,"pertemuan11":False,
-                                   "pertemuan12":False}
+                                   "pertemuan12":False,"pertemuan13":False}
     st.rerun()
     
