@@ -1993,7 +1993,7 @@ def materi8():
         st.components.v1.html(tulisanHTML,height=2000)
 
 def materi9():
-    menu = st.tabs(['Kover','Video Pembelajaran','Pencacahan dan Kombinasi','Latihan','Papan Tulis','Aplikasi Artificial Intelegence','Media VBA for Excel'])
+    menu = st.tabs(['Kover','Video Pembelajaran','Pencacahan dan Kombinasi','Permutasi dan Kombinasi','Latihan','Papan Tulis','Aplikasi Artificial Intelegence','Media VBA for Excel'])
     with menu[0]:
         tulisanHTML = "<iframe src='https://res.cloudinary.com/dfkw4ux0e/image/upload/v1778888444/ChatGPT_Image_May_16_2026_06_32_08_AM_p85oyy.png' style='width:100%; height:1400px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1400)
@@ -2022,16 +2022,19 @@ def materi9():
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/Kombagian1.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
     with menu[3]:
-        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/latihanPencacahan.html' style='width:100%; height:1000px'></iframe>"
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/perkom.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
     with menu[4]:
-        tulisanHTML = "<iframe src='https://app.ziteboard.com/' style='width:100%; height:1000px'></iframe>"
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/latihanPencacahan.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
     with menu[5]:
+        tulisanHTML = "<iframe src='https://app.ziteboard.com/' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+    with menu[6]:
         st.title('Pengantar Kecerdasan Buatan (AI) dengan Matematika Diskrit')
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/Machine1.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
-    with menu[6]:
+    with menu[7]:
         st.title('Pengembangan VBA for Excel')
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/kombinatorik_matematika_diskrit.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
