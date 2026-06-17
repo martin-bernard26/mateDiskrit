@@ -1984,16 +1984,75 @@ End Sub
         st.video("https://youtu.be/Tiq7qPuxj04")
 
 def materi8():
-    menu = st.tabs(["Video Pembelajaran","Materi"])
+    menu = st.tabs(["Video Pembelajaran","Materi","Latihan","Lembar Pengembangan Media VBA for Excel"])
     with menu[0]:
         st.latex("Membuktikan\\;\\sum^{n}{i=1}i=\\frac{n(n+1)}{2}")
         st.video("https://youtu.be/CVAr9FVCxpc")
     with menu[1]:
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/induksimat.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=2000)
+    with menu[2]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/latihanInduksiA1.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+        st.write("Pengumpulan Tugas")
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/tugasInduksiA1.html' style='width:100%; height:800px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=800)
+    with menu[3]:
+        st.code("""
+Sub TampilkanBasis()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+    
+    ws.Range("B7").Value = "LANGKAH 1: Basis Induksi" & vbCrLf & _
+        "Tunjukkan bahwa pernyataan benar untuk n = 1." & vbCrLf & _
+        "Contoh: 1 = 1(1+1)/2 => 1 = 1. (Terbukti)"
+    
+    ' Mengubah warna tombol sebagai indikator visual
+    ws.Shapes("btnBasis").Fill.ForeColor.RGB = RGB(0, 255, 0)
+End Sub
 
+Sub TampilkanAsumsi()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+    
+    ws.Range("B7").Value = "LANGKAH 2: Hipotesis Induksi" & vbCrLf & _
+        "Asumsikan pernyataan benar untuk n = k." & vbCrLf & _
+        "P(k): 1 + 2 + ... + k = k(k+1)/2"
+        
+    ws.Shapes("btnAsumsi").Fill.ForeColor.RGB = RGB(0, 255, 0)
+End Sub
+
+Sub TampilkanLangkah()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+    
+    ws.Range("B7").Value = "LANGKAH 3: Langkah Induktif" & vbCrLf & _
+        "Tunjukkan bahwa pernyataan benar untuk n = k+1." & vbCrLf & _
+        "Tambahkan (k+1) ke kedua sisi asumsi, lalu sederhanakan."
+        
+    ws.Shapes("btnLangkah").Fill.ForeColor.RGB = RGB(0, 255, 0)
+End Sub
+
+Sub ResetMedia()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+    ws.Range("B7").Value = ""
+    ws.Shapes("btnBasis").Fill.ForeColor.RGB = RGB(200, 200, 200)
+    ws.Shapes("btnAsumsi").Fill.ForeColor.RGB = RGB(200, 200, 200)
+    ws.Shapes("btnLangkah").Fill.ForeColor.RGB = RGB(200, 200, 200)
+End Sub
+        """)
 def materi9():
-    menu = st.tabs(['Kover','Video Pembelajaran','Pencacahan dan Kombinasi','Permutasi dan Kombinasi','Latihan','Papan Tulis','Aplikasi Artificial Intelegence','Media VBA for Excel'])
+    menu = st.tabs(['Kover','Video Pembelajaran','Pencacahan dan Kombinasi','Permutasi dan Kombinasi',
+                    'Binomial','Pigeon Hole dan Inklusi and Enklusi','Latihan','Papan Tulis','Aplikasi Artificial Intelegence','Media VBA for Excel'])
+    st.markdown('---')
+    st.write('Media')
+    st.markdown("""
+                ### Klik link di bawah untuk membuka notebook:
+
+                [Buka Google Colab](https://colab.research.google.com/drive/1ZpalPt-3XQuwyKMG3jV4NRzNBvWbMY1k?usp=sharing)
+                """)
+    st.markdown('---')
     with menu[0]:
         tulisanHTML = "<iframe src='https://res.cloudinary.com/dfkw4ux0e/image/upload/v1778888444/ChatGPT_Image_May_16_2026_06_32_08_AM_p85oyy.png' style='width:100%; height:1400px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1400)
@@ -2025,19 +2084,64 @@ def materi9():
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/perkom.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
     with menu[4]:
-        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/latihanPencacahan.html' style='width:100%; height:1000px'></iframe>"
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/sifatKombinasi.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
     with menu[5]:
-        tulisanHTML = "<iframe src='https://app.ziteboard.com/' style='width:100%; height:1000px'></iframe>"
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/pigeon.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
     with menu[6]:
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/latihanPencacahan.html' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+        st.write("Pengumpulan Tugas")
+        tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/tugasA1Komb.html' style='width:100%; height:500px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=500)
+    with menu[7]:
+        tulisanHTML = "<iframe src='https://app.ziteboard.com/' style='width:100%; height:1000px'></iframe>"
+        st.components.v1.html(tulisanHTML,height=1000)
+    with menu[8]:
         st.title('Pengantar Kecerdasan Buatan (AI) dengan Matematika Diskrit')
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskritB12023html/Machine1.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
-    with menu[7]:
+    with menu[9]:
         st.title('Pengembangan VBA for Excel')
         tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/kombinatorik_matematika_diskrit.html' style='width:100%; height:1000px'></iframe>"
         st.components.v1.html(tulisanHTML,height=1000)
+        st.write("Kembangkan media dengan koding VBA for Excel di bawah ini")
+        st.code("""
+' Fungsi Faktorial
+Function Faktorial(n As Long) As Double
+    If n <= 1 Then Faktorial = 1 Else Faktorial = n * Faktorial(n - 1)
+End Function
+
+Sub HitungPermutasi()
+    Dim n As Long, r As Long
+    n = Range("C3").Value
+    r = Range("C4").Value
+    
+    If n >= r Then
+        Range("C6").Value = "Permutasi P(" & n & "," & r & ") = " & (Faktorial(n) / Faktorial(n - r))
+    Else
+        MsgBox "Nilai n harus lebih besar atau sama dengan r!", vbCritical
+    End If
+End Sub
+
+Sub HitungKombinasi()
+    Dim n As Long, r As Long
+    n = Range("C3").Value
+    r = Range("C4").Value
+    
+    If n >= r Then
+        Range("C6").Value = "Kombinasi C(" & n & "," & r & ") = " & (Faktorial(n) / (Faktorial(r) * Faktorial(n - r)))
+    Else
+        MsgBox "Nilai n harus lebih besar atau sama dengan r!", vbCritical
+    End If
+End Sub
+
+Sub Reset()
+    Range("C3:C4").ClearContents
+    Range("C6").ClearContents
+End Sub
+        """)
         
 #--------------------------------------
 if st.session_state.kondisi['kover']:
