@@ -2169,6 +2169,8 @@ def materi11():
 def materi12():
     tulisanHTML = "<iframe src='https://drive.google.com/file/d/1BqcOFzgQKYWHB933OH0_m_2TOUmauFkU/preview' style='width:100%; height:1000px'></iframe>"
     st.components.v1.html(tulisanHTML,height=1000)
+    tulisanHTML = "<iframe src='https://martin-bernard26.github.io/matematikaDiskrit2023A1/UASMDA1.html' style='width:100%; height:1000px'></iframe>"
+    st.components.v1.html(tulisanHTML,height=1000)
     
 #--------------------------------------
 if st.session_state.kondisi['kover']:
